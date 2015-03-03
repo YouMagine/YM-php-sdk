@@ -39,6 +39,8 @@ if ($userSlugOrId) {
             <a class="btn btn-default" href="javascript:window.location.reload()"><i class="glyphicon glyphicon-repeat"></i></a>
         </legend>
 
-        <pre><code><?php print_r($designs) ?></code></pre>
+        <pre><code>
+            <?php print_r($designs) ?>
+        </code></pre>
     </fieldset>
 <?php endif ?>

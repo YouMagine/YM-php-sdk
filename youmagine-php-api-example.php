@@ -40,28 +40,31 @@
         // Include the YouMagine API class
         require 'youmagine.php';
 
-        $apiActions = array(
-            'Authorization'                 => 'authorization',
-            'Retrieve designs'              => 'retrieve_designs',
-            'Retrieve designs with context' => 'retrieve_designs_with_context',
-            'Retrieve design categories'    => 'retrieve_design_categories'
-        );
-        
-        $youMagine = new YouMagine(INTEGRATION, array('https' => USE_HTTPS, 'host' => 'localhost:3000'));
-        
-        $currentPage = (
-            $youMagine->isAuthorized() && isset($_GET['page'])
-                ? $_GET['page']
-                : 'authorization'
-        );
-        
-        $includePath = 'examples/'.preg_replace('/[^A-Z0-9_]/i', '', $currentPage).'.php';
+        // Create an instance of YouMagine, representing the API
+        $youMagine = new YouMagine(INTEGRATION, array('https' => USE_HTTPS, 'host' => 'youmagine.local:3000'));
 
-        $includeFile = (
-            file_exists($includePath)
-                ? $includePath
-                : null
-        );
+        /**/    // Some magic to include the right example file
+        /**/    $apiActions = array(
+        /**/        'Authorization'                 => 'authorization',
+        /**/        'Retrieve designs'              => 'retrieve_designs',
+        /**/        'Retrieve designs with context' => 'retrieve_designs_with_context',
+        /**/        'Retrieve design categories'    => 'retrieve_design_categories',
+        /**/        'Create design'                 => 'create_design'
+        /**/    );
+        /**/
+        /**/    $currentPage = (
+        /**/        $youMagine->isAuthorized() && isset($_GET['page'])
+        /**/            ? $_GET['page']
+        /**/            : 'authorization'
+        /**/    );
+        /**/
+        /**/    $includePath = 'examples/'.preg_replace('/[^A-Z0-9_]/i', '', $currentPage).'.php';
+        /**/
+        /**/    $includeFile = (
+        /**/        file_exists($includePath)
+        /**/            ? $includePath
+        /**/            : null
+        /**/    );
 
 /*--- /BOOTSTRAP -------------------------------------------------------------*/
         
@@ -130,6 +133,19 @@
         <?php else: ?>
             <?php if ($includeFile) { include $includeFile; } ?>
         <?php endif ?>
+        
+        <?php
+        
+        $lastResponse = $youMagine->getLastResponse();
+
+        if ($lastResponse && $lastResponse->status != 200) {
+            echo '<div class="alert alert-danger">The request was not succesful. Below are the technical details</div>';
+            echo '<pre>';
+            $youMagine->debug();
+            echo '</pre>';
+        }
+        
+        ?>
                 
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -143,7 +159,6 @@
                         newInputGroup = inputGroups.first().clone();
 
                     newInputGroup.find(':input').val('');
-
                     newInputGroup.appendTo(container);
                 };
                 

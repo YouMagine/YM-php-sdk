@@ -15,17 +15,20 @@ class HttpApiClient {
     protected $response = null;
     protected $protocol;
     protected $host;
+    protected $virtualDirectory;
     
     private $curl;
     
     public function __construct(array $options) {
         $options += array(
-            'host'  => null,
-            'https' => false
+            'host'              => null,
+            'https'             => false,
+            'virtualDirectory'  => ''
         );
         
         $this->host = $options['host'];
-        $this->protocol = ($options['https'] ? 'https' : 'http');;
+        $this->protocol = ($options['https'] ? 'https' : 'http');
+        $this->virtualDirectory = $options['virtualDirectory'];
     }
     
     public function getLastResponse () {
@@ -34,6 +37,11 @@ class HttpApiClient {
     
     public function getLastRequest () {
         return $this->request;
+    }
+
+    public function debug () {
+        print_r($this->getLastRequest());
+        print_r($this->getLastResponse());
     }
     
     protected function mandatoryQueryParameters () {
@@ -57,7 +65,7 @@ class HttpApiClient {
     }
     
     private function request ($method, $resource, array $params = array(), array $query = array()) {
-        $apiRoot = "$this->protocol://api.$this->host/";
+        $apiRoot = "$this->protocol://api.$this->host$this->virtualDirectory/";
         $query += $this->mandatoryQueryParameters();
         $url = $apiRoot.$resource.'.json'.'?'.http_build_query($query);
         $this->doRequest($method, $url, $params);
@@ -135,15 +143,22 @@ class HttpApiClient {
 class YouMagine extends HttpApiClient {
 
     const HOST = 'youmagine.com';
+    const API_VERSION_1 = 'v1';
+    const API_LATEST_VERSION = self::API_VERSION_1;
+
     private $authToken = null;
     private $application;
     private $user;
     
     public function __construct ($application, array $options = array()) {
         $options += array(
-            'host'  => self::HOST,
-            'https' => true
+            'host'      => self::HOST,
+            'https'     => true,
+            'version'   => self::API_LATEST_VERSION
         );
+
+        $options['virtualDirectory'] = '/'.$options['version'];
+        unset($options['version']);
         
         parent::__construct($options);
         $this->application = $application;
