@@ -140,11 +140,20 @@ class HttpApiClient {
     
 }
 
-class YouMagine extends HttpApiClient {
+class YouMagine extends HttpClient {
 
     const HOST = 'youmagine.com';
+
     const API_VERSION_1 = 'v1';
+    const API_VERSION_LEGACY = 'legacy';
+
+    const API_LATEST_STABLE_VERSION = self::API_VERSION_LEGACY;
     const API_LATEST_VERSION = self::API_VERSION_1;
+
+    private static $apiVersionPaths = array(
+        self::API_VERSION_1         => '/v1',
+        self::API_VERSION_LEGACY    => ''
+    );
 
     private $authToken = null;
     private $application;
@@ -154,12 +163,16 @@ class YouMagine extends HttpApiClient {
         $options += array(
             'host'      => self::HOST,
             'https'     => true,
-            'version'   => self::API_LATEST_VERSION
+            'version'   => self::API_LATEST_STABLE_VERSION
         );
 
-        $options['virtualDirectory'] = '/'.$options['version'];
+        if (array_key_exists($options['version'], self::$apiVersionPaths)) {
+            $options['virtualDirectory'] = self::$apiVersionPaths[$options['version']];
+        } else {
+            throw new InvalidArgumentException("Invalid API version selected: '".$options['version']."'");
+        }
+
         unset($options['version']);
-        
         parent::__construct($options);
         $this->application = $application;
         

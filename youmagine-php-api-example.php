@@ -41,15 +41,16 @@
         require 'youmagine.php';
 
         // Create an instance of YouMagine, representing the API
-        $youMagine = new YouMagine(INTEGRATION, array('https' => USE_HTTPS, 'host' => 'youmagine.local:3000'));
+        $youMagine = new YouMagine(INTEGRATION, array(
+            'https' => USE_HTTPS
+        ));
 
         /**/    // Some magic to include the right example file
         /**/    $apiActions = array(
         /**/        'Authorization'                 => 'authorization',
         /**/        'Retrieve designs'              => 'retrieve_designs',
         /**/        'Retrieve designs with context' => 'retrieve_designs_with_context',
-        /**/        'Retrieve design categories'    => 'retrieve_design_categories',
-        /**/        'Create design'                 => 'create_design'
+        /**/        'Retrieve design categories'    => 'retrieve_design_categories'
         /**/    );
         /**/
         /**/    $currentPage = (
