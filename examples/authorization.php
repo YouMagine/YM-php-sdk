@@ -29,11 +29,11 @@ if (!$isAuthorized) {
 <?php if ($isAuthorized): ?>
     <div class="alert alert-info">
         <div class="row">
-            <div class="col-sm-3 col-md-2 col-lg-2">
+            <div class="col-sm-6 col-md-6 col-lg-6">
                 Authentication token: <?php echo $youMagine->getAuthToken() ?>
             </div>
 
-            <div class="col-sm-9 col-md-10 col-lg-10">
+            <div class="col-sm-6 col-md-6 col-lg-6">
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#userInfo">Show user info</button>
                 <a href="<?php echo url('?page=authorization&event=clear') ?>" class="btn btn-large btn-danger">Clear session</a>
             </div>

@@ -97,11 +97,25 @@
             .nested-form:only-child .btn.remove-row {
                 display: none;
             }
+
+            .navbar-brand img {
+                float: left;
+                margin-right: 10px;
+            }
         </style>
     </head>
     
     <body>
-        <h1>YouMagine PHP API Example</h1>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img alt="YouMagine logo" width="20" height="20" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wMGCzs1KyPlrAAAAuNJREFUOMutlV1ozWEcxz+/5382w6zQxs44O9awWYtJzM6ZKC4IWaRkoZOScoEL5bgQteNKuZRySsqNRqKUJOwgryuv8742B6tpOp1jZ+3/fx4X/ue/Yxfk5Xv19Lx8n+/ze77P9xFchCNREvEY4UhUgGJgMbAVaAKmudM+ALeBU8AdIJ2Ix0xuLYCMIisCVgJtQC2/xgvgAHA5EY9lcxySR1YCHAJ282c4BhxMxGOpcCTqKSwCjvwFWT7p/kQ8lhW3Zi1AO/+G9cB55V5AG4ASQYl4M0RAKeW1R2NUXxtQrIAQUKONoXn+HNYtW4TlktRXV7JxRROFBQWE5tXiaO2tdrQmPK8Wx/H6aoCQcq2B4zhMKilmz+Y1tCxrpHRiCYd3bqKxfhaWJRzZ1cqcqgDDto1tO9RVTefwzk2MLSpEG5Mj3aJcn+Hz+Th79TbX7j9he8tyNixvQkQ4duYS5ZMnAbBt9VIsZWFrzd7WtWhtmFFRhh5RHlJARc6QllLETrZj2zYrFs3lxLkrdL1PUhP0AzB3dpAFddWsCs2neno5IhAsn4KjPYUV6uciC5lslosdDxCBp296cLTDzMoKAAaHhlmzZAFbVi/lU/8AlrII+kvzFaKA5OjbU0q8DWxHUxP0k8oMcvT0BRbWVRP0lxGLt5MZGiLoL8OM1DDpA24BgXzCAp+PsWPGICIUFRYyq9LPu94+7j59xaf+AdLfsjx+3c3Hvi8EppZSMn4cw7aNiNyyAg3NGaA1/9ip9CDP3vXQ1Z1EWQIGbnY+52V3koFUmusPn/Hla5rUt0F6+/p52/uZYdtBRPZJOBKdANxzfTSSGCLeUSxLYbRBG4MSwWAw5sdDEJGcP7uAhQpIu6nhwUB+XXAc7XlNmx9kuXae2aNA2urp7CDQ0PzefYKN/xAOxxPxmK3c+MoCB90B/jK+suFIFKunsyMXsEOBhuYbwCOgHij9DdFzYIerLOMF7P/+Ar4DKoE4K1pVcFkAAAAASUVORK5CYII="/>
+                        YouMagine PHP API Example
+                    </a>
+                </div>
+            </div>
+        </nav>
         
         <?php if ($youMagine->isAuthorized()): ?>
             <?php if (!USE_HTTPS): ?>
