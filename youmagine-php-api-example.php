@@ -47,10 +47,10 @@
 
         /**/    // Some magic to include the right example file
         /**/    $apiActions = array(
-        /**/        'Authorization'                 => 'authorization',
-        /**/        'Retrieve designs'              => 'retrieve_designs',
-        /**/        'Retrieve designs with context' => 'retrieve_designs_with_context',
-        /**/        'Retrieve design categories'    => 'retrieve_design_categories'
+        /**/        'authorization'                 => 'Authorization' ,
+        /**/        'retrieve_designs'              => 'Retrieve designs',
+        /**/        'retrieve_designs_with_context' => 'Retrieve designs with context',
+        /**/        'retrieve_design_categories'    => 'Retrieve design categories'
         /**/    );
         /**/
         /**/    $currentPage = (
@@ -74,6 +74,7 @@
 ?>
 <html>
     <head>
+        <title><?php echo $apiActions[$currentPage] ?> - YouMagine API PHP example</title>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
         
         <style>
@@ -129,7 +130,7 @@
             <div class="row">
                 <div class="col-sm-3 col-md-2 col-lg-2">
                     <ul class="nav nav-pills nav-stacked">
-                        <?php foreach ($apiActions as $description => $page): ?>
+                        <?php foreach ($apiActions as $page => $description): ?>
                             <li 
                                 <?php if ($currentPage == $page): ?>
                                     class="active"
