@@ -9,13 +9,15 @@ switch (session_status()) {
         break;
 }
 
-class HttpApiClient {
+class HttpClient {
     
     protected $request = null;
     protected $response = null;
     protected $protocol;
     protected $host;
+    protected $subDomain;
     protected $virtualDirectory;
+    protected $extension = '';
     
     private $curl;
     
@@ -65,9 +67,12 @@ class HttpApiClient {
     }
     
     private function request ($method, $resource, array $params = array(), array $query = array()) {
-        $apiRoot = "$this->protocol://api.$this->host$this->virtualDirectory/";
+        $subDomain = ($this->subDomain ? "$this->subDomain." : '');
+        $extension = ($this->extension ? ".$this->extension" : '');
+
+        $apiRoot = "$this->protocol://$subDomain$this->host$this->virtualDirectory/";
         $query += $this->mandatoryQueryParameters();
-        $url = $apiRoot.$resource.'.json'.'?'.http_build_query($query);
+        $url = $apiRoot.$resource.$extension.'?'.http_build_query($query);
         $this->doRequest($method, $url, $params);
         return $this->response->data;
     }
@@ -175,7 +180,8 @@ class YouMagine extends HttpClient {
         unset($options['version']);
         parent::__construct($options);
         $this->application = $application;
-        
+        $this->subDomain = 'api';
+        $this->extension = 'json';
         
         if (isset($_SESSION[__CLASS__])) {
             $storedSession = unserialize($_SESSION[__CLASS__]);
