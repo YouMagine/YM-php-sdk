@@ -10,16 +10,24 @@ switch (session_status()) {
 }
 
 class HttpClient {
-    
+
     protected $request = null;
     protected $response = null;
+    private $curl;
+
     protected $protocol;
     protected $host;
     protected $subDomain;
     protected $virtualDirectory;
     protected $extension = '';
-    
-    private $curl;
+
+    public static function createUploadFile ($filepath, $filename, $mimetype) {
+        if (function_exists('curl_file_create')) {
+            return curl_file_create($filepath, $mimetype, $filename);
+        }
+
+        return "@$filepath;filename=$filename;type=$mimetype";
+    }
     
     public function __construct(array $options) {
         $options += array(
@@ -96,6 +104,10 @@ class HttpClient {
             CURLOPT_RETURNTRANSFER  => true,
             CURLOPT_FOLLOWLOCATION  => true
         ));
+
+        if (defined('CURLOPT_SAFE_UPLOAD')) {
+            curl_setopt($this->curl, CURLOPT_SAFE_UPLOAD, true);
+        }
         
         $this->request = new stdClass();
         $this->request->url = $url;
@@ -116,7 +128,8 @@ class HttpClient {
             case 'POST':
                 curl_setopt($this->curl, CURLOPT_POST, true);
                 break;
-            
+
+            case 'PATCH':
             case 'PUT':
             case 'DELETE':
                 curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $httpMethod);
@@ -125,13 +138,26 @@ class HttpClient {
         }
     }
     
-    private function setRequestParams ($requestParams) {
+    private function setRequestParams (array $requestParams) {
         if (!empty($requestParams)) {
-            $requestString = http_build_query($requestParams);
-            curl_setopt($this->curl, CURLOPT_POSTFIELDS, $requestString);
+            $flattenedRequestParams = array();
+            $this->flattenRequestParams($requestParams, $flattenedRequestParams);
+            curl_setopt($this->curl, CURLOPT_POSTFIELDS, $flattenedRequestParams);
         }
         
         $this->request->params = $requestParams;
+    }
+
+    private function flattenRequestParams (array $source, &$destination, $prefix = '') {
+        foreach ($source as $key => $value) {
+            $name = ($prefix ? $prefix.'['.$key.']' : "$key");
+
+            if (is_array($value)) {
+                $this->flattenRequestParams($value, $destination, $name);
+            } else {
+                $destination[$name] = $value;
+            }
+        }
     }
     
     private function processResponse ($body) {
@@ -163,6 +189,21 @@ class YouMagine extends HttpClient {
     private $authToken = null;
     private $application;
     private $user;
+
+    private static $uploadErrorExplanations = array(
+        UPLOAD_ERR_OK           => 'There is no error, the file uploaded with success.',
+        UPLOAD_ERR_INI_SIZE     => 'The uploaded file exceeds the upload_max_filesize directive in php.ini.',
+        UPLOAD_ERR_FORM_SIZE    => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.',
+        UPLOAD_ERR_PARTIAL      => 'The uploaded file was only partially uploaded.',
+        UPLOAD_ERR_NO_FILE      => 'No file was uploaded.',
+        UPLOAD_ERR_NO_TMP_DIR   => 'Missing a temporary folder. Introduced in PHP 5.0.3.',
+        UPLOAD_ERR_CANT_WRITE   => 'Failed to write file to disk. Introduced in PHP 5.1.0.',
+        UPLOAD_ERR_EXTENSION    => 'A PHP extension stopped the file upload. PHP does not provide a way to ascertain which extension caused the file upload to stop; examining the list of loaded extensions with phpinfo() may help. Introduced in PHP 5.2.0.'
+    );
+
+    public static function explainUploadError ($uploadError) {
+        return self::$uploadErrorExplanations[$uploadError];
+    }
     
     public function __construct ($application, array $options = array()) {
         $options += array(
@@ -253,7 +294,19 @@ class YouMagine extends HttpClient {
     }
     
     public function addDesignImage ($designSlugOrId, array $data) {
-        $this->post("designs/$designSlugOrId/images", array('image' => $data));
+        return $this->post("designs/$designSlugOrId/images", array(
+            'image' => $data
+        ), array(
+            'Content-Type' => 'multipart/form-data'
+        ));
+    }
+
+    public function addDesignDocument ($designSlugOrId, array $data) {
+        return $this->post("designs/$designSlugOrId/documents", array(
+            'document' => $data
+        ), array(
+            'Content-Type' => 'multipart/form-data'
+        ));
     }
     
     protected function mandatoryQueryParameters() {

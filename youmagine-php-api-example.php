@@ -50,7 +50,8 @@
         /**/        'authorization'                 => 'Authorization' ,
         /**/        'retrieve_designs'              => 'Retrieve designs',
         /**/        'retrieve_designs_with_context' => 'Retrieve designs with context',
-        /**/        'retrieve_design_categories'    => 'Retrieve design categories'
+        /**/        'retrieve_design_categories'    => 'Retrieve design categories',
+        /**/        'create_design'                 => 'Create design'
         /**/    );
         /**/
         /**/    $currentPage = (
@@ -118,6 +119,29 @@
                 </div>
             </div>
         </nav>
+
+        <?php foreach (array('POST', 'FILES') as $globalName):
+            $variableName = '$_'.$globalName;
+            ?>
+            <?php if (isset($$variableName)): ?>
+                <div class="alert alert-info">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            There is <?php echo $globalName ?> data available
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#show<?php echo $globalName ?>">Show <?php echo $globalName ?> data</button>
+                        </div>
+                    </div>
+
+                    <div class="collapse" id="show<?php echo $globalName ?>">
+                        <br/>
+                        <pre><?php print_r($$variableName) ?></pre>
+                    </div>
+                </div>
+            <?php endif ?>
+        <?php endforeach ?>
         
         <?php if ($youMagine->isAuthorized()): ?>
             <?php if (!USE_HTTPS): ?>
@@ -151,14 +175,16 @@
         <?php endif ?>
         
         <?php
-        
-        $lastResponse = $youMagine->getLastResponse();
 
-        if ($lastResponse && ($lastResponse->status < 200 || $lastResponse->status >= 300)) {
-            echo '<div class="alert alert-danger">The request was not succesful. Below are the technical details</div>';
-            echo '<pre>';
-            $youMagine->debug();
-            echo '</pre>';
+        if (!isset($hideErrors)) {
+            $lastResponse = $youMagine->getLastResponse();
+
+            if ($lastResponse && ($lastResponse->status < 200 || $lastResponse->status >= 300)) {
+                echo '<div class="alert alert-danger">The request was not succesful. Below are the technical details</div>';
+                echo '<pre>';
+                $youMagine->debug();
+                echo '</pre>';
+            }
         }
         
         ?>
