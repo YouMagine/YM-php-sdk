@@ -154,7 +154,7 @@
         
         $lastResponse = $youMagine->getLastResponse();
 
-        if ($lastResponse && $lastResponse->status != 200) {
+        if ($lastResponse && ($lastResponse->status < 200 || $lastResponse->status >= 300)) {
             echo '<div class="alert alert-danger">The request was not succesful. Below are the technical details</div>';
             echo '<pre>';
             $youMagine->debug();
@@ -168,7 +168,6 @@
         
         <script>
             (function ($, window) {
-                
                 window.addFileInput = function (triggerButton) {
                     var container = $(triggerButton).closest('.form-group').children('div'),
                         inputGroups = container.find('.form-horizontal'),
@@ -181,7 +180,6 @@
                 window.removeFileInput = function (triggerButton) {
                     $(triggerButton).closest('.nested-form').remove();
                 };
-                
             }(jQuery, window));
         </script>
     </body>
