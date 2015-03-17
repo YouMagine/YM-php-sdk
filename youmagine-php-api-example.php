@@ -42,7 +42,8 @@
 
         // Create an instance of YouMagine, representing the API
         $youMagine = new YouMagine(INTEGRATION, array(
-            'https' => USE_HTTPS
+            'https'     => USE_HTTPS,
+            'version'   => YouMagine::API_VERSION_1
         ));
 
         /**/    // Some magic to include the right example file
