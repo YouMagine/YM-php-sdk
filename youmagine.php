@@ -181,7 +181,6 @@ class YouMagine extends HttpClient {
         parent::__construct($options);
         $this->application = $application;
         $this->subDomain = 'api';
-        $this->extension = 'json';
         
         if (isset($_SESSION[__CLASS__])) {
             $storedSession = unserialize($_SESSION[__CLASS__]);
