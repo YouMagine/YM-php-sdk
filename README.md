@@ -1,4 +1,9 @@
-# YouMagine PHP SDK
+*PLEASE NOTE: This API is work in progress for the new YouMagine API, referred
+to as v1. This new API version is not final, so the use of it is not recommended
+until the official release. Please watch this repository if you want to stay
+informed.*
+
+# YouMagine PHP SDK for API v1
 
 A PHP library that you can use to interface with YouMagine.
 
