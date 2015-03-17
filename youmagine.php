@@ -152,7 +152,7 @@ class YouMagine extends HttpClient {
     const API_VERSION_1 = 'v1';
     const API_VERSION_LEGACY = 'legacy';
 
-    const API_LATEST_STABLE_VERSION = self::API_VERSION_LEGACY;
+    const API_LATEST_STABLE_VERSION = self::API_VERSION_1;
     const API_LATEST_VERSION = self::API_VERSION_1;
 
     private static $apiVersionPaths = array(
