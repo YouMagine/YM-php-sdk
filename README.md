@@ -1,7 +1,10 @@
 *PLEASE NOTE: This API is work in progress for the new YouMagine API, referred
 to as v1. This new API version is not final, so the use of it is not recommended
 until the official release. Please watch this repository if you want to stay
-informed.*
+informed.
+
+Please refer to [The master branch](https://github.com/YouMagine/sdk-php])
+for the SDK for the current stable API*
 
 # YouMagine PHP SDK for API v1
 
@@ -14,7 +17,7 @@ below (PHP 5.4 or higher is required to run PHP's built-in webserver)
 
 
 ```
-git clone https://github.com/YouMagine/sdk-php.git
+git clone -b api-v1 https://github.com/YouMagine/sdk-php.git
 cd sdk-php
 php -S localhost:8000
 ```
@@ -31,7 +34,7 @@ When using the PHP SDK in your own web application, you only need the
 youmagine.php file.
 
 ```
-wget https://raw.githubusercontent.com/YouMagine/sdk-php/master/youmagine.php
+wget https://raw.githubusercontent.com/YouMagine/sdk-php/api-v1/youmagine.php
 ```
 
 Then include the file...
