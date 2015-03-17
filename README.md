@@ -2,7 +2,7 @@
 to as v1. This new API version is not final, so the use of it is not recommended
 until the official release. Please watch this repository if you want to stay
 informed. Please refer to
-[The master branch](https://github.com/YouMagine/sdk-php]) for the SDK for the
+[The master branch](https://github.com/YouMagine/sdk-php) for the SDK for the
 current stable API*
 for the SDK for the current stable API*
 
