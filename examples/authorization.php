@@ -19,7 +19,7 @@ if ($event == 'redirected') {
 $isAuthorized = $youMagine->isAuthorized();
 
 if (!$isAuthorized) {
-    $redirectUrl = url('?page=authorization&event=redirected&foo=bar');
+    $redirectUrl = url('?page=authorization&event=redirected');
     $deniedUrl = url('?page=authorization&event=denied');
     $authorizeUrl = $youMagine->getAuthorizeUrl($redirectUrl, $deniedUrl);
 }
