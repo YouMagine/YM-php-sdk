@@ -301,19 +301,11 @@ class YouMagine extends HttpClient {
     }
     
     public function addDesignImage ($designSlugOrId, array $data) {
-        return $this->post("designs/$designSlugOrId/images", array(
-            'image' => $data
-        ), array(
-            'Content-Type' => 'multipart/form-data'
-        ));
+        return $this->post("designs/$designSlugOrId/images", array('image' => $data));
     }
 
     public function addDesignDocument ($designSlugOrId, array $data) {
-        return $this->post("designs/$designSlugOrId/documents", array(
-            'document' => $data
-        ), array(
-            'Content-Type' => 'multipart/form-data'
-        ));
+        return $this->post("designs/$designSlugOrId/documents", array('document' => $data));
     }
     
     protected function mandatoryQueryParameters() {
