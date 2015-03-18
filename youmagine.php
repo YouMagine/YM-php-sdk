@@ -313,7 +313,9 @@ class YouMagine extends HttpClient {
     }
 
     public function publishDesign ($designSlugOrId) {
-        return $this->put("designs/$designSlugOrId/mark_as/publish");
+        return $this->put("designs/$designSlugOrId", array(
+            'design' => array('state' => 'published')
+        ));
     }
 
     protected function mandatoryQueryParameters() {
