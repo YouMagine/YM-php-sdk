@@ -19,7 +19,7 @@ below (PHP 5.4 or higher is required to run PHP's built-in webserver)
 ```
 git clone -b api-v1 https://github.com/YouMagine/sdk-php.git
 cd sdk-php
-php -S localhost:8000
+php -S localhost:8000 -c php.ini
 ```
 
 Then visit http://localhost:8000/youmagine-php-api-example.php in your browser
