@@ -22,7 +22,7 @@ if ($designSlugOrId) {
             <pre><?php print_r($request->params) ?></pre>
         </legend>
 
-        <pre><?php print_r($result) ?></pre>
+        <pre><?php print_r($publishedDesign) ?></pre>
         <pre><?php echo htmlentities($response->body) ?></pre>
     </fieldset>
 <?php else: ?>
