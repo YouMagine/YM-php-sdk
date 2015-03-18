@@ -1,5 +1,12 @@
 <?php
 
+if (!function_exists('curl_version')) {
+    die('It seems cURL for PHP is not properly installed or configured. '
+       .'Please check the installation instructions for '
+       .'<a href="http://curl.haxx.se/download.html" target="_blank">cURL</a> and/or the '
+       .'<a href="http://php.net/manual/en/curl.setup.php" target="_blank">PHP cURL extension</a>');
+}
+
 switch (session_status()) {
     case PHP_SESSION_DISABLED:
         die('API example requires a working session!');
