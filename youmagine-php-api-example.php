@@ -51,7 +51,8 @@
         /**/        'retrieve_designs'              => 'Retrieve designs',
         /**/        'retrieve_designs_with_context' => 'Retrieve designs with context',
         /**/        'retrieve_design_categories'    => 'Retrieve design categories',
-        /**/        'create_design'                 => 'Create design'
+        /**/        'create_design'                 => 'Create design',
+        /**/        'publish_design'                => 'Publish design'
         /**/    );
         /**/
         /**/    $currentPage = (
