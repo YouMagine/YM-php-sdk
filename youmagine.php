@@ -76,6 +76,10 @@ class HttpClient {
     protected function put ($resource, array $params = array()) {
         return $this->request('PUT', $resource, $params, array());
     }
+
+    protected function patch ($resource, array $params = array()) {
+        return $this->request('PATCH', $resource, $params, array());
+    }
     
     protected function delete ($resource, array $params = array()) {
         return $this->request('DELETE', $resource, $params, array());
@@ -307,7 +311,11 @@ class YouMagine extends HttpClient {
     public function addDesignDocument ($designSlugOrId, array $data) {
         return $this->post("designs/$designSlugOrId/documents", array('document' => $data));
     }
-    
+
+    public function publishDesign ($designSlugOrId) {
+        return $this->put("designs/$designSlugOrId/mark_as/publish");
+    }
+
     protected function mandatoryQueryParameters() {
         return array('auth_token' => $this->authToken);
     }
