@@ -22,7 +22,7 @@ cd sdk-php
 php -S localhost:8000 -c php.ini
 ```
 
-Then visit http://localhost:8000/youmagine-php-api-example.php in your browser
+Then visit [http://localhost:8000/youmagine-php-api-example.php](http://localhost:8000/youmagine-php-api-example.php) in your browser
 
 If your PHP version is < 5.4, we recommend either to update your PHP version
 (find some assistance [here](http://php.net/manual/en/install.php)) or install
