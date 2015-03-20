@@ -1,16 +1,16 @@
 # YouMagine PHP SDK
 
-A PHP library that you can use to interface with YouMagine.
+The official PHP library that you can use to interface with YouMagine.
 
 ## Quickstart with example application
 
-If you are running Linux or MacOSX, you can quickstart with the console commands
+If you are running Linux or MacOS X, you can quickstart with the console commands
 below (PHP 5.4 or higher is required to run PHP's built-in webserver)
 
 
 ```
-git clone https://github.com/YouMagine/sdk-php.git
-cd sdk-php
+git clone https://github.com/YouMagine/YM-php-sdk.git
+cd YM-php-sdk
 php -S localhost:8000 -c php.ini
 ```
 
@@ -21,7 +21,7 @@ If your PHP version is < 5.4, we recommend either to update your PHP version
 another type of webserver, for example
 [Apache](https://www.apachefriends.org/index.html).
 
-## Use the SDK in your application
+## Using the SDK in your application
 
 NOTE: when your are developing you own application that
 integrates with YouMagine, you first need to register your application with
@@ -31,7 +31,7 @@ When using the PHP SDK in your own web application, you only need the
 youmagine.php file.
 
 ```
-wget https://raw.githubusercontent.com/YouMagine/sdk-php/master/youmagine.php
+wget https://raw.githubusercontent.com/YouMagine/YM-php-sdk/master/youmagine.php
 ```
 
 Then include the file...
@@ -56,6 +56,10 @@ $youMagine = new YouMagine('your youmagine application name here', array(
     'https' => false
 ));
 ```
+
+## Contributing
+
+You can contribute in two ways. Let us know which functionality you're missing or what bug you found throught the issue tracker. Also, you can fork this repository and create a pull request. Please try to make your pull requests isolated, so no unrelated changes in a single pull request. Each set of related changes should have its own pull request. Also, try to adhere to the coding style that exists, with respect to whitespace and brackets. Please fork from the latest master branch before starting to make your changes. Thanks a lot!
 
 ## Questions?
 
