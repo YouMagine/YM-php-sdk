@@ -8,19 +8,19 @@ $event = (
 
 if ($event == 'clear') {
     $youMagine->clearSession();
-    echo '<script>window.location="'.url().'";</script>';
+    echo '<script>window.location="'.YouMagine::url().'";</script>';
 }
 
 if ($event == 'redirected') {
     $youMagine->authorize();
-    echo '<script>window.location="'.url().'";</script>';
+    echo '<script>window.location="'.YouMagine::url().'";</script>';
 }
 
 $isAuthorized = $youMagine->isAuthorized();
 
 if (!$isAuthorized) {
-    $redirectUrl = url('?page=authorization&event=redirected');
-    $deniedUrl = url('?page=authorization&event=denied');
+    $redirectUrl = YouMagine::url('?page=authorization&event=redirected');
+    $deniedUrl = YouMagine::url('?page=authorization&event=denied');
     $authorizeUrl = $youMagine->getAuthorizeUrl($redirectUrl, $deniedUrl);
 }
 
@@ -35,7 +35,7 @@ if (!$isAuthorized) {
 
             <div class="col-sm-6 col-md-6 col-lg-6">
                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#userInfo">Show user info</button>
-                <a href="<?php echo url('?page=authorization&event=clear') ?>" class="btn btn-large btn-danger">Clear session</a>
+                <a href="<?php echo YouMagine::url('?page=authorization&event=clear') ?>" class="btn btn-large btn-danger">Clear session</a>
             </div>
         </div>
 
