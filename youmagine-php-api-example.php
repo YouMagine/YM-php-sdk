@@ -34,9 +34,6 @@
         
 /*--- BOOTSTRAP --------------------------------------------------------------*/
         
-        // Handy utility function to generate an URL, based on the current URL
-        require 'url.php';
-
         // Include the YouMagine API class
         require 'youmagine.php';
 

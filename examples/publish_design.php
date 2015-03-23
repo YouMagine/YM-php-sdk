@@ -26,7 +26,7 @@ if ($designSlugOrId) {
         <pre><?php echo htmlentities($response->body) ?></pre>
     </fieldset>
 <?php else: ?>
-    <form action="<?php echo url('?page='.$currentPage) ?>" class="form form-inline" method="post">
+    <form action="<?php echo YouMagine::url('?page='.$currentPage) ?>" class="form form-inline" method="post">
         <div class="form-group">
             <label for="publish_design__design_slug_or_id">Design slug or ID</label>
             <input class="form-control" id="publish_design__design_slug_or_id" name="design_slug_or_id">

@@ -35,6 +35,30 @@ class HttpClient {
 
         return "@$filepath;filename=$filename;type=$mimetype";
     }
+
+    public static function url ($url = null) {
+        $parts = parse_url($url);
+        $currentRequestUri = parse_url($_SERVER['REQUEST_URI']);
+
+        if (empty($parts['path'])) {
+            unset($parts['path']);
+        }
+
+        $parts += array(
+            'scheme'    => empty($_SERVER['HTTPS']) ? 'http' : 'https',
+            'host'      => $_SERVER['HTTP_HOST'],
+            'path'      => $currentRequestUri['path'],
+            'query'     => ''
+        );
+
+        $url = $parts['scheme'].'://'.$parts['host'].$parts['path'];
+
+        if (!empty($parts['query'])) {
+            $url .= '?'.$parts['query'];
+        }
+
+        return $url;
+    }
     
     public function __construct(array $options) {
         $options += array(
