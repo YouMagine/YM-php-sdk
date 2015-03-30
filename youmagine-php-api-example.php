@@ -42,7 +42,8 @@
             'https' => USE_HTTPS
         ));
 
-        /**/    // Some magic to include the right example file
+        /***    Some magic to include the right example file
+        /**/
         /**/    $apiActions = array(
         /**/        'authorization'                 => 'Authorization' ,
         /**/        'retrieve_designs'              => 'Retrieve designs',
