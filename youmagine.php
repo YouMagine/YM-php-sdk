@@ -276,7 +276,7 @@ class YouMagine extends HttpClient {
     
     public function authorize () {
         if (!isset($_POST)) {
-            die('Error when authorizing: no POST data available');
+            throw new RuntimeException('Error when authorizing: no POST data available');
         }
         
         $data = $_POST;
