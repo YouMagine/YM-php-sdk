@@ -216,6 +216,9 @@ class YouMagine extends HttpClient {
     const API_LATEST_STABLE_VERSION = self::API_VERSION_1;
     const API_LATEST_VERSION = self::API_VERSION_1;
 
+    const PAGINATION_DEFAULT_PAGE = 1;
+    const PAGINATION_DEFAULT_LIMIT = 20;
+
     private static $apiVersionPaths = array(
         self::API_VERSION_1         => '/v1',
         self::API_VERSION_LEGACY    => ''
@@ -310,8 +313,11 @@ class YouMagine extends HttpClient {
         $this->user = null;
     }
     
-    public function designs () {
-        return $this->get('designs');
+    public function designs ($page = self::PAGINATION_DEFAULT_PAGE, $limit = self::PAGINATION_DEFAULT_LIMIT) {
+        return $this->get('designs', array(
+            'page'  => $page,
+            'limit' => $limit
+        ));
     }
     
     public function designsWithContext ($userSlugOrID) {
