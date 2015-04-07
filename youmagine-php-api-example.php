@@ -16,7 +16,12 @@
         /**
          * The name of the integrated application
          */
-        define('INTEGRATION', 'phpexample');
+        define('INTEGRATION', 'my-test-app');
+
+        /**
+         * The application's secret
+         */
+        define('SECRET', 'ybSrSWnsfnTM2SWo');
 
         /**
          * Whether or not to use HTTPS.
@@ -40,7 +45,8 @@
         // Create an instance of YouMagine, representing the API
         $youMagine = new YouMagine(INTEGRATION, array(
             'https'     => USE_HTTPS,
-            'version'   => YouMagine::API_VERSION_1
+            'version'   => YouMagine::API_VERSION_1,
+            'secret'    => SECRET
         ));
 
         /***    Some magic to include the right example file
