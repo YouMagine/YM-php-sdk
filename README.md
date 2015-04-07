@@ -40,7 +40,19 @@ example [Apache](3).
 
 NOTE: when your are developing you own application that
 integrates with YouMagine, you first need to register your application with
-YouMagine. Please follow the guidelines at https://api.youmagine.com/api.
+YouMagine. Please follow the guidelines at https://api.youmagine.com/api. You
+will receive a unique API secret so that the API can verify your app's identity.
+This should prevent other apps form stealing the authorization your app received
+from the visitor.
+
+NOTE: when using a local server to test your PHP application, the visitor's IP
+address on your PHP server will be different from the IP address on YouMagine,
+and your app will not be able to authorize. For test purposes you could
+temporarily fake the IP by changing it before including the SDK:
+
+```php
+$_SERVER['REMOTE_ADDR'] = '<your public IP>';
+```
 
 When using the PHP SDK in your own web application, you only need the
 youmagine.php file.
@@ -58,7 +70,9 @@ include_once youmagine.php
 ... and instantiate the YouMagine class:
 
 ```php
-$youMagine = new YouMagine('your youmagine application name here');
+$youMagine = new YouMagine('your youmagine application name here', array(
+    'secret' => 'your app secret here'
+));
 ```
 
 The YouMagine SDK is using HTTPS by default (it is recommended because you do
@@ -68,7 +82,8 @@ HTTP:
 
 ```php
 $youMagine = new YouMagine('your youmagine application name here', array(
-    'https' => false
+    'secret'    => 'your app secret here',
+    'https'     => false
 ));
 ```
 
