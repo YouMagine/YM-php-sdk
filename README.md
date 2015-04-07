@@ -7,7 +7,11 @@ current stable API*
 
 # YouMagine PHP SDK for API v1
 
-A PHP library that you can use to interface with YouMagine.
+The official PHP library that you can use to interface with YouMagine. Please
+note that this SDK is mainly to demonstrate how to consume the API, and only
+the most used operations are implemented. However, it is easy to add the methods
+you need with only basic PHP knowledge. When you add functionary, please issue
+a pull request so we can add your contribution.
 
 ## Quickstart with example application
 
