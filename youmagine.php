@@ -224,6 +224,7 @@ class YouMagine extends HttpClient {
     private $authToken = null;
     private $application;
     private $user;
+    private $secret;
 
     private static $uploadErrorExplanations = array(
         UPLOAD_ERR_OK           => 'There is no error, the file uploaded with success.',
@@ -244,7 +245,8 @@ class YouMagine extends HttpClient {
         $options += array(
             'host'      => self::HOST,
             'https'     => true,
-            'version'   => self::API_LATEST_STABLE_VERSION
+            'version'   => self::API_LATEST_STABLE_VERSION,
+            'secret'    => ''
         );
 
         if (array_key_exists($options['version'], self::$apiVersionPaths)) {
@@ -253,11 +255,17 @@ class YouMagine extends HttpClient {
             throw new InvalidArgumentException("Invalid API version selected: '".$options['version']."'");
         }
 
+        if (empty($options['secret'])) {
+            throw new InvalidArgumentException("The secret was empty or not set."
+                ."You need a secret to be able to sign the authorization request.");
+        }
+
         unset($options['version']);
         parent::__construct($options);
         $this->application = $application;
         $this->subDomain = 'api';
         $this->extension = 'json';
+        $this->secret = $options['secret'];
         
         if (isset($_SESSION[__CLASS__])) {
             $storedSession = unserialize($_SESSION[__CLASS__]);
@@ -292,7 +300,8 @@ class YouMagine extends HttpClient {
     public function getAuthorizeUrl ($redirectUrl, $denyUrl) {
         $query = http_build_query(array(
             'redirect_url'  => $redirectUrl,
-            'deny_url'      => $denyUrl
+            'deny_url'      => $denyUrl,
+            'signature'     => $this->createSignature()
         ));
         
         return "$this->protocol://$this->host/integrations/$this->application/authorized_integrations/new?$query";
@@ -343,6 +352,11 @@ class YouMagine extends HttpClient {
 
     protected function mandatoryQueryParameters() {
         return array('auth_token' => $this->authToken);
+    }
+
+    private function createSignature () {
+        $signatureString = $this->application.$this->secret.$_SERVER['REMOTE_ADDR'];
+        return hash('sha512', $signatureString);
     }
 
 }
